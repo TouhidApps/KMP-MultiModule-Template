@@ -1,0 +1,17 @@
+package com.touhidapps.androidapp.di
+
+//import com.touhidapps.room.data.datasource.local.db.AppDatabase
+//import com.touhidapps.room.db.DbFactoryAndroid
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.Module
+import org.koin.dsl.module
+
+val dbModuleAndroid = module {
+
+    // Ensure that the database is initialized before using it
+//    single<AppDatabase> {
+//        DbFactoryAndroid.initDatabase(context = androidContext())
+//        DbFactoryAndroid.initialize()
+//    }
+
+}

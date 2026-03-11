@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    To load coil image INTERNET permission is necessary in this module also -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>
