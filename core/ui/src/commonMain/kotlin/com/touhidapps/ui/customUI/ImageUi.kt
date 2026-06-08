@@ -1,51 +1,68 @@
 package com.touhidapps.ui.customUI
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ImageNotSupported
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
+import com.touhidapps.ui.Res
+import com.touhidapps.ui.compose_multiplatform
+
+@Preview
+@Composable
+fun PreviewMyAsyncImage() {
+    Column {
+        MyAsyncImage(
+            iUrl = "https://example.com/image.png",
+            imgDescription = "Sample Image",
+        )
+    }
+}
 
 @Composable
-fun MyAsyncImage(iUrl: String? = null, imgDescription: String? = "Image") {
+fun MyAsyncImage(
+    iUrl: String? = null,
+    imgDescription: String? = "Image",
+    modifier: Modifier = Modifier.size(100.dp)
+) {
+    // In Preview mode, we use a local resource as the model so Coil renders it in the IDE.
+    // In the real app, we use the provided URL.
+    val imageModel = if (LocalInspectionMode.current) {
+        Res.drawable.compose_multiplatform
+    } else {
+        iUrl
+    }
 
-    if (!iUrl.isNullOrBlank()) {
+    if (imageModel != null) {
         SubcomposeAsyncImage(
-            modifier = Modifier.size(100.dp),
-            model = iUrl,
+            modifier = modifier,
+            model = imageModel,
             loading = {
-                Box(modifier = Modifier.size(45.dp), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                }
+            },
+            error = {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = Icons.Default.ImageNotSupported,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.error
+                    )
                 }
             },
             contentDescription = imgDescription ?: "Image"
         )
-
-//        AsyncImage(
-//            model = iUrl,
-//            modifier = Modifier.size(100.dp),
-//            contentDescription = null,
-//        )
-
-
     }
-
-
-//    AsyncImage(
-//        model = ImageRequest.Builder(LocalPlatformContext.current)
-//            .data("item.imageUrl")
-//            .crossfade(true)
-//            .build(),
-////        placeholder = painterResource(R.drawable.placeholder),
-////        error = painterResource(R.drawable.error),
-//        contentDescription = item.name,
-//        contentScale = ContentScale.Crop,
-//        modifier = Modifier
-//            .size(90.dp)
-//            .clip(RoundedCornerShape(10.dp))
-//    )
-
 }

@@ -173,7 +173,7 @@ fun MainNavigation(appEntryProvider: (NavKey) -> NavEntry<NavKey>) {
 
                         NavDisplay(
                             backStack = backStack,
-                            sceneStrategy = strategy,
+                            sceneStrategies = listOf(strategy),
                             onBack = {
                                 backStack.toRoute(Route.Back)
                                 titleChangeByRoute(backStack) {

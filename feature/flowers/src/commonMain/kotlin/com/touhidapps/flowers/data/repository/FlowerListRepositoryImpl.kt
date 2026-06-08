@@ -28,7 +28,7 @@ class FlowerListRepositoryImpl(private val api: FlowerListApi) :
         domainModel
     }
 
-    override fun getFlowerById(id: Int): com.touhidapps.flowers.domain.model.FlowerModel? {
+    override fun getFlowerById(id: Int): FlowerModel? {
         return cachedFlowers.find { it.id == id }
     }
 }

@@ -45,12 +45,6 @@ kotlin {
     // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "forceUpdateKit"
 
-    iosX64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
-
     iosArm64 {
         binaries.framework {
             baseName = xcfName
@@ -88,10 +82,10 @@ kotlin {
                // implementation(project(":domain"))
 
                 // Shared utilities, Result, Error, Dispatchers
-                implementation(project(":common"))
+                implementation(project(":core:common"))
 
                 // Shared Compose UI (theme, components)
-                implementation(project(":ui"))
+                implementation(project(":core:ui"))
 
             }
         }
