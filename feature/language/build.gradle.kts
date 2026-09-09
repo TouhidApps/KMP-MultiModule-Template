@@ -46,12 +46,6 @@ kotlin {
     // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "languageKit"
 
-    iosX64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
-
     iosArm64 {
         binaries.framework {
             baseName = xcfName
@@ -86,16 +80,17 @@ kotlin {
                 implementation(libs.bundles.nav3)
                 implementation(libs.androidx.material3.adaptive)
 
+
                 // Business layer
              //   implementation(project(":domain"))
 
                 // Shared utilities, Result, Error, Dispatchers
-                implementation(project(":common"))
+                implementation(project(":core:common"))
 
                 // Shared Compose UI (theme, components)
-                implementation(project(":ui"))
+                implementation(project(":core:ui"))
 
-                implementation(projects.preferences)
+                implementation(projects.core.preferences)
 
             }
         }

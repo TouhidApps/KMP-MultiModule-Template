@@ -4,15 +4,11 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.kotlinAndroid)
-
 }
 
 android {
     namespace = "com.touhidapps.androidapp"
-    compileSdk {
-        version = release(libs.versions.android.compileSdk.get().toInt())
-    }
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

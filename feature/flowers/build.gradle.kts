@@ -24,11 +24,7 @@ kotlin {
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     android {
         namespace = "com.touhidapps.flowers"
-        compileSdk {
-            version = release(libs.versions.android.compileSdk.get().toInt()) {
-                minorApiLevel = 1
-            }
-        }
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
         withHostTestBuilder {
@@ -49,12 +45,6 @@ kotlin {
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "flowersKit"
-
-    iosX64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
 
     iosArm64 {
         binaries.framework {
@@ -96,11 +86,11 @@ kotlin {
                 //       implementation(project(":domain"))
 
                 // Shared utilities, Result, Error, Dispatchers
-                implementation(project(":common"))
-                implementation(projects.network)
+                implementation(project(":core:common"))
+                implementation(projects.core.network)
 
                 // Shared Compose UI (theme, components)
-                implementation(project(":ui"))
+                implementation(project(":core:ui"))
 
 
             }
@@ -118,13 +108,13 @@ kotlin {
             }
         }
 
-        getByName("androidDeviceTest") {
-            dependencies {
-                implementation(libs.androidx.runner)
-                implementation(libs.androidx.core)
-                implementation(libs.androidx.junit)
-            }
-        }
+//        getByName("androidDeviceTest") {
+//            dependencies {
+//                implementation(libs.androidx.runner)
+//                implementation(libs.androidx.core)
+//                implementation(libs.androidx.junit)
+//            }
+//        }
 
         iosMain {
             dependencies {

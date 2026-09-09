@@ -38,34 +38,21 @@ include(
     ":composeApp",
     ":androidApp",
 
-    ":network",
-    ":common",
-    ":preferences",
-    ":ui",
+    ":core:network",
+    ":core:common",
+    ":core:preferences",
+    ":core:ui",
 
-    ":language",
-    ":home",
-    ":flowers",
-    ":settings",
-    ":about",
-    ":alertMaintenance",
-    ":alertWelcome",
-    ":forceUpdate",
+    ":feature:language",
+    ":feature:home",
+    ":feature:flowers",
+    ":feature:settings",
+    ":feature:about",
+    ":feature:alertMaintenance",
+    ":feature:alertWelcome",
+    ":feature:forceUpdate",
 )
 
-project(":common").projectDir = file("core/common")
-project(":network").projectDir = file("core/network")
-project(":preferences").projectDir = file("core/preferences")
-project(":ui").projectDir = file("core/ui")
-
-project(":language").projectDir = file("feature/language")
-project(":home").projectDir = file("feature/home")
-project(":flowers").projectDir = file("feature/flowers")
-project(":settings").projectDir = file("feature/settings")
-project(":about").projectDir = file("feature/about")
-project(":alertMaintenance").projectDir = file("feature/alertMaintenance")
-project(":alertWelcome").projectDir = file("feature/alertWelcome")
-project(":forceUpdate").projectDir = file("feature/forceUpdate")
 
 
-
+include(":core:database")

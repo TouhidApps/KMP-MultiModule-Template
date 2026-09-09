@@ -119,19 +119,19 @@ fun createHttpClient() = HttpClient {
 
         }
 
-        handleResponseException { cause, request ->
+        handleResponseExceptionWithRequest { cause, request ->
 
             if (cause !is UnresolvedAddressException) { // UnresolvedAddressException is no internet
                 sendErrorLogToServer(cause, myResp)
             }
 
-//            if (cause is ClientRequestException || cause is ServerResponseException) {
-//                // Send error log to Firebase or server
-//                sendErrorLogToServer(cause)
-//            } else {
-//                // Optionally handle unexpected exceptions
-//                println("Unexpected error: ${cause.localizedMessage}")
-//            }
+            //            if (cause is ClientRequestException || cause is ServerResponseException) {
+            //                // Send error log to Firebase or server
+            //                sendErrorLogToServer(cause)
+            //            } else {
+            //                // Optionally handle unexpected exceptions
+            //                println("Unexpected error: ${cause.localizedMessage}")
+            //            }
         }
 
     }

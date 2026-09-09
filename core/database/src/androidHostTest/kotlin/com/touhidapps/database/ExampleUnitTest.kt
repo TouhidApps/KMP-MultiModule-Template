@@ -1,4 +1,4 @@
-package com.touhidapps.alertmaintenance
+package com.touhidapps.database
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

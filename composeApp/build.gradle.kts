@@ -1,6 +1,7 @@
 import org.gradle.kotlin.dsl.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -40,15 +41,9 @@ kotlin {
 //    }
 
     androidLibrary {
-        compileSdk {
-            namespace = "com.touhidapps.mmca"
-
-            version = release(libs.versions.android.compileSdk.get().toInt())
-
-            experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
-
-        }
-
+        namespace = "com.touhidapps.mmca"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
 
     listOf(
@@ -63,7 +58,7 @@ kotlin {
     
     sourceSets {
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.compose.tooling.preview)
             implementation(libs.compose.tooling)
             implementation(libs.androidx.activity.compose)
 
@@ -93,16 +88,16 @@ kotlin {
 
             // Business layer
           //  implementation(project(":domain"))
-            implementation(project(":ui"))
-            implementation(project(":common"))
-            implementation(projects.preferences)
-            implementation(projects.network)
+            implementation(project(":core:ui"))
+            implementation(project(":core:common"))
+//            implementation(projects.preferences)
+            implementation(projects.core.network)
 
-            implementation(project(":home"))
-            implementation(project(":flowers"))
-            implementation(project(":language"))
-            implementation(project(":about"))
-            implementation(project(":forceUpdate"))
+            implementation(project(":feature:home"))
+            implementation(project(":feature:flowers"))
+            implementation(project(":feature:language"))
+            implementation(project(":feature:about"))
+            implementation(project(":feature:forceUpdate"))
 
         }
         iosMain.dependencies {
