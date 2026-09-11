@@ -1,0 +1,11 @@
+product:
+  type: kmp/lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, wasmJs ]
+
+# Base of the dependency graph: shared types, error wrappers, dispatchers
+# and pure helpers. Must NOT depend on any other core module.
+dependencies:
+  - $libs.kotlinx.coroutines.core
+  # Plain (non-Compose) ViewModel artifact, so BaseViewModel doesn't drag
+  # Compose into every module that extends it. See README rule 4.
+  - $libs.androidx.lifecycle.viewmodel

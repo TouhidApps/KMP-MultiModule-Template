@@ -1,0 +1,11 @@
+product: ios/app
+
+dependencies:
+  - //app/shared
+  - //core/common
+  - //core/database
+  - $compose.ui
+  - $libs.koin.core
+
+settings:
+  compose: enabled

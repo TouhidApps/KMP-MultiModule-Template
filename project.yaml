@@ -1,0 +1,23 @@
+modules:
+  - app/androidApp
+  - app/desktopApp
+  - app/iosApp
+  - app/shared
+  - app/webApp
+  - core/common
+  - core/database
+  - core/firebase
+  - core/network
+  - core/preferences
+  - core/ui
+  - feature/about
+  - feature/alertMaintenance
+  - feature/alertWelcome
+  - feature/flowers
+  - feature/forceUpdate
+  - feature/home
+  - feature/language
+  - feature/more
+  - feature/notification
+  - feature/settings
+  - server

@@ -1,0 +1,40 @@
+product:
+  type: kmp/lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, wasmJs ]
+
+# A remote-backed notification list — same data/domain/presentation shape
+# as feature/flowers, wired through core/network's ResultNet.
+dependencies:
+  - //core/common
+  - //core/ui
+  - //core/network
+  - $compose.runtime
+  - $compose.foundation
+  - $compose.material3
+  - $compose.ui
+  - $compose.components.resources
+  - $compose.preview
+  - $libs.compose.iconExtended
+  - $libs.androidx.lifecycle.viewmodel.compose
+  - $libs.androidx.lifecycle.runtime.compose
+  - $libs.androidx.lifecycle.viewmodel.nav3
+  - $libs.androidx.nav3.ui
+  - $libs.androidx.material3.adaptive
+  - $libs.koin.core
+  - $libs.koin.compose
+  - $libs.koin.compose.viewmodel
+  - $libs.kotlinx.serialization.json
+  - $libs.ktor.client.core
+
+dependencies@android:
+  - $compose.uiTooling
+
+settings:
+  compose:
+    enabled: true
+    resources:
+      packageName: com.touhidapps.kmp.feature.notification.resources
+      exposedAccessors: true
+  kotlin:
+    serialization:
+      enabled: true

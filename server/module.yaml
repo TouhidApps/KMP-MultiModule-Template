@@ -1,0 +1,18 @@
+product: jvm/app
+
+dependencies:
+  - //core/common
+  - org.springframework.boot:spring-boot-starter-web
+  - $libs.kotlinx.serialization.json
+  - $libs.kotlin.reflect
+  - $libs.logback.classic
+
+settings:
+  springBoot:
+    enabled: true
+    version: 3.5.7
+  kotlin:
+    serialization:
+      enabled: true
+  jvm:
+    mainClass: com.touhidapps.kmp.server.ApplicationKt

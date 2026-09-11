@@ -1,0 +1,23 @@
+product:
+  type: kmp/lib
+  # wasmJs is intentionally absent: neither Room KMP nor the native SQLite
+  # drivers target Kotlin/Wasm. Use SQLDelight if the web app ever needs
+  # local persistence.
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64 ]
+
+dependencies:
+  - //core/common
+  - $libs.kotlinx.coroutines.core
+  - $libs.androidx.room.runtime
+  - $libs.sqlite.bundled
+
+settings:
+  kotlin:
+    ksp:
+      processors:
+        - androidx.room:room-compiler:2.8.4
+      processorOptions:
+        room.schemaLocation: ./schemas
+        room.generateKotlin: "true"
+  kotlin:
+    freeCompilerArgs: [ -Xexpect-actual-classes ]

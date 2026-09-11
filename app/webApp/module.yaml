@@ -1,0 +1,10 @@
+product: wasm-js/app
+
+dependencies:
+  - //app/shared
+  - //core/common
+  - $compose.ui
+  - $libs.koin.core
+
+settings:
+  compose: enabled

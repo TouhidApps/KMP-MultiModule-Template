@@ -1,0 +1,37 @@
+product:
+  type: kmp/lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, wasmJs ]
+
+# Ported from the old app's feature/home (MVI: Contract/State/Events + a
+# Navigation3 entry). Landing screen, currently just a link to the flower list.
+dependencies:
+  - //core/common
+  - //core/ui
+  - $compose.runtime
+  - $compose.foundation
+  - $compose.material3
+  - $compose.ui
+  - $compose.components.resources
+  - $compose.preview
+  - $libs.androidx.lifecycle.viewmodel.compose
+  - $libs.androidx.lifecycle.runtime.compose
+  - $libs.androidx.lifecycle.viewmodel.nav3
+  - $libs.androidx.nav3.ui
+  - $libs.androidx.material3.adaptive
+  - $libs.koin.core
+  - $libs.koin.compose
+  - $libs.koin.compose.viewmodel
+
+dependencies@android:
+  - $compose.uiTooling
+
+settings:
+  compose:
+    enabled: true
+    resources:
+      packageName: com.touhidapps.kmp.feature.home.resources
+      exposedAccessors: true
+  kotlin:
+    # HomeViewModel exposes its StateFlow/SharedFlow through an explicit
+    # backing field so HomeContract sees only the read-only type.
+    freeCompilerArgs: [ -XXLanguage:+ExplicitBackingFields, -Xskip-prerelease-check ]

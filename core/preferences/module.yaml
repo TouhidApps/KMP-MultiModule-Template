@@ -1,0 +1,8 @@
+product:
+  type: kmp/lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, wasmJs ]
+
+dependencies:
+  - //core/common
+  - $libs.kotlinx.coroutines.core
+  - $libs.multiplatform.settings.no.arg

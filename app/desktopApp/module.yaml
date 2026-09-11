@@ -1,0 +1,17 @@
+product: jvm/app
+
+dependencies:
+  - //app/shared
+  - //core/common
+  - //core/database
+  - $libs.androidx.room.runtime
+  - $compose.desktop.currentOs
+  - $compose.preview
+  - $libs.kotlinx.coroutines.swing
+  - $libs.logback.classic
+  - $libs.koin.core
+
+settings:
+  compose: enabled
+  jvm:
+    mainClass: com.touhidapps.kmp.MainKt

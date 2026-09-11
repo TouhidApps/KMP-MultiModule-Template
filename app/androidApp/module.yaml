@@ -1,0 +1,17 @@
+product: android/app
+
+dependencies:
+  - //app/shared
+  - //core/common
+  - //core/database
+  - //core/firebase
+  - $libs.androidx.activity.compose
+  - $libs.koin.android
+  - $compose.preview
+  - $compose.uiTooling
+
+settings:
+  compose: enabled
+  android:
+    namespace: com.touhidapps.kmp
+    applicationId: com.touhidapps.kmp

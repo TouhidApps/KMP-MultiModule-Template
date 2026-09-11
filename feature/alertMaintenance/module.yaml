@@ -1,0 +1,34 @@
+product:
+  type: kmp/lib
+  # Same platform list as core/ui so app/shared (which targets wasmJs)
+  # can depend on this feature. See rule 5 in the README.
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, wasmJs ]
+
+# Maintenance window is published by the backend, so it needs core/network.
+
+dependencies:
+  - //core/common
+  - //core/ui
+  - //core/network
+  - $compose.runtime
+  - $compose.foundation
+  - $compose.material3
+  - $compose.ui
+  - $compose.components.resources
+  - $compose.preview
+  - $libs.androidx.lifecycle.viewmodel.compose
+  - $libs.androidx.lifecycle.runtime.compose
+  - $libs.kotlinx.coroutines.core
+  - $libs.ktor.client.core
+  - $libs.koin.core
+
+dependencies@android:
+  - $compose.uiTooling
+
+settings:
+  compose:
+    enabled: true
+    resources:
+      # Must be unique across every module that enables Compose resources.
+      packageName: com.touhidapps.kmp.feature.alertmaintenance.resources
+      exposedAccessors: true

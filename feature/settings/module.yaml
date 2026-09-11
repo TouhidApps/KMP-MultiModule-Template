@@ -1,0 +1,35 @@
+product:
+  type: kmp/lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, wasmJs ]
+
+# MVI + a Navigation3 entry, matching the rest of the app's wired-in
+# features. Dark mode is persisted through core/preferences' AppPreferences;
+# the Language/About rows are plain navigation to their own features.
+dependencies:
+  - //core/common
+  - //core/ui
+  - //core/preferences
+  - $compose.runtime
+  - $compose.foundation
+  - $compose.material3
+  - $compose.ui
+  - $compose.components.resources
+  - $compose.preview
+  - $libs.androidx.lifecycle.viewmodel.compose
+  - $libs.androidx.lifecycle.runtime.compose
+  - $libs.androidx.lifecycle.viewmodel.nav3
+  - $libs.androidx.nav3.ui
+  - $libs.androidx.material3.adaptive
+  - $libs.koin.core
+  - $libs.koin.compose
+  - $libs.koin.compose.viewmodel
+
+dependencies@android:
+  - $compose.uiTooling
+
+settings:
+  compose:
+    enabled: true
+    resources:
+      packageName: com.touhidapps.kmp.feature.settings.resources
+      exposedAccessors: true

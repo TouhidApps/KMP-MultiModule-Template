@@ -1,0 +1,17 @@
+product:
+  type: kmp/lib
+  # Android only. GitLive's iOS binding needs the native Firebase iOS SDK
+  # frameworks linked via CocoaPods/SPM at the Xcode project level, and
+  # Amper has no CocoaPods/SPM integration to do that — declaring the
+  # dependency here compiles fine but fails at the final iosApp link step
+  # ("Undefined symbols ... _OBJC_CLASS_$_FIRApp"). jvm/wasmJs are out for
+  # the same reason core/database excludes wasmJs: no SDK targets them
+  # (jvm actually has a path via GitLive's Java Firebase SDK port, but it
+  # needs non-standard init this template doesn't attempt).
+  platforms: [ android ]
+
+dependencies:
+  - //core/common
+  - $libs.firebase.gitlive.common
+  - $libs.firebase.gitlive.analytics
+  - $libs.firebase.gitlive.auth

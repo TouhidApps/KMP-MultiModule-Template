@@ -1,7 +1,0 @@
-TEAM_ID=
-
-PRODUCT_NAME=KMP-Multi-Module-Clean-Architecture-MVI
-PRODUCT_BUNDLE_IDENTIFIER=com.touhidapps.mmca.KMP-Multi-Module-Clean-Architecture-MVI$(TEAM_ID)
-
-CURRENT_PROJECT_VERSION=1
-MARKETING_VERSION=1.0

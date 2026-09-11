@@ -1,0 +1,40 @@
+product:
+  type: kmp/lib
+  platforms: [ jvm, android, iosArm64, iosSimulatorArm64, wasmJs ]
+
+# Ported from the old app's core/ui (Navigation3 + adaptive two-pane layout,
+# theme, localization, custom components). Navigation3/adaptive originally
+# only shipped on Android/iOS; jvm+wasmJs support here is unproven.
+dependencies:
+  - //core/common
+  - $compose.runtime
+  - $compose.foundation
+  - $compose.material3
+  - $compose.ui
+  - $compose.components.resources
+  - $compose.preview
+  - $libs.compose.iconExtended
+  - $libs.androidx.lifecycle.viewmodel.compose
+  - $libs.androidx.lifecycle.runtime.compose
+  - $libs.androidx.lifecycle.viewmodel.nav3
+  - $libs.androidx.nav3.ui
+  - $libs.androidx.material3.adaptive.nav3
+  - $libs.androidx.material3.adaptive
+  - $libs.kotlinx.serialization.json
+  - $libs.coil.compose
+  - $libs.coil.network.ktor3
+
+dependencies@android:
+  - $compose.uiTooling
+
+settings:
+  compose:
+    enabled: true
+    resources:
+      # Matches the old app's packageOfResClass, since theme/Resources.kt
+      # imports com.touhidapps.ui.Res directly (no ".resources" suffix).
+      packageName: com.touhidapps.ui
+      exposedAccessors: true
+  kotlin:
+    serialization:
+      enabled: true
