@@ -99,20 +99,50 @@ Use the run configurations provided by the run widget in your IDE's toolbar. You
 - Web app: `./kotlin run -m webApp`
 - Server: `./kotlin run -m server`
 
-### Using with Claude Code
+### AI assistance (Claude Code)
 
-This template ships with [Claude Code](https://claude.com/claude-code) project skills in [`.claude/skills/`](./.claude/skills/) and project rules in [CLAUDE.md](./CLAUDE.md). Open the project with Claude Code and the skills load automatically; Claude picks the matching one for each task, or you can call one directly with `/<skill-name>`.
+This template ships with [Claude Code](https://claude.com/claude-code) project skills in [`.claude/skills/`](./.claude/skills/) and project rules in [CLAUDE.md](./CLAUDE.md). The skills teach the AI this project's layout and conventions, so the code it writes fits the template.
 
-| Area | Skills |
+#### How to use
+
+1. Install [Claude Code](https://claude.com/claude-code) and run `claude` from the project root. The skills and CLAUDE.md load automatically.
+2. Describe the task in plain words. Claude picks the matching skill on its own, for example:
+   - `Add a profile feature with a screen that loads the user from the API`
+   - `Set up UAT and PROD environments with separate Supabase projects`
+   - `Generate the app icon and splash from a new logo`
+3. Or call a skill directly with `/<skill-name>`, for example `/kmp-feature-scaffold add a "favorites" feature`.
+4. Review the changes and run the tests before you commit.
+
+The rules in CLAUDE.md apply to every task: TDD, MVI, the core/feature module layout and UAT/PROD environments. Claude never uploads to Firebase or the stores without your confirmation. Keep credentials out of the repo; personal Claude settings go in `.claude/settings.local.json`, which git ignores.
+
+#### Skills
+
+| Skill | Use it to |
 | --- | --- |
-| Architecture and code | `kmp-clean-architecture`, `kmp-feature-scaffold`, `kotlin-readable-code`, `compose-multiplatform-ui` |
-| Data and backend | `kmp-networking-ktor`, `kmp-supabase`, `web-admin-landing` |
-| App setup | `kmp-environments`, `kmp-security`, `kmp-analytics-logging` |
-| App features | `kmp-push-notifications`, `kmp-update-maintenance-alerts`, `kmp-legal-consent` |
-| Graphics | `app-graphics-generator`, `store-assets-generator` |
-| Distribution | `firebase-app-distribution`, `play-console-release`, `app-store-connect-release` |
-
-The rules in CLAUDE.md apply to every task: TDD, MVI, the core/feature module layout and UAT/PROD environments. Claude never uploads to Firebase or the stores without your confirmation. Personal Claude settings go in `.claude/settings.local.json`, which git ignores.
+| **Architecture and code** | |
+| `kmp-clean-architecture` | Design a feature's layers, add use cases, repositories and mappers, and keep the dependency rule |
+| `kmp-feature-scaffold` | Add a new screen or feature module with Koin DI, MVI, Navigation 3, Material 3 and tests |
+| `kotlin-readable-code` | Write, refactor or review Kotlin with clean-code naming, structure and idioms |
+| `compose-multiplatform-ui` | Build or restyle Material 3 screens, the common theme, resources and translations |
+| **Data and backend** | |
+| `kmp-networking-ktor` | Add API calls with Ktor, auth/token refresh, error handling, uploads and pagination |
+| `kmp-supabase` | Use Supabase for auth, Postgres, storage, realtime and edge functions |
+| `web-admin-landing` | Build the admin portal and landing page (Next.js + PHP/MySQL API under `backend/`) |
+| **App setup** | |
+| `kmp-environments` | Set up UAT and PROD API URLs, Supabase and Firebase, and the app version label |
+| `kmp-security` | Apply HIGH (payments, banking) or BASIC security: TLS pinning, root/jailbreak checks, encrypted storage |
+| `kmp-analytics-logging` | Add screen views, click events, logs, API telemetry and error reporting |
+| **App features** | |
+| `kmp-push-notifications` | Add FCM push sent from the admin portal, a push list, tap actions and push analytics |
+| `kmp-update-maintenance-alerts` | Add admin-controlled maintenance screens and soft/force update dialogs |
+| `kmp-legal-consent` | Link the Privacy Policy and Terms, add sign-up consent and re-acceptance |
+| **Graphics** | |
+| `app-graphics-generator` | Design the logo and generate all app icons, splash and brand graphics (with a UAT badge) |
+| `store-assets-generator` | Make Play Store and App Store screenshots, feature graphic and store icon |
+| **Distribution** | |
+| `firebase-app-distribution` | Send Android and iOS test builds to testers through Firebase App Distribution |
+| `play-console-release` | Release PROD Android bundles to Google Play tracks with staged rollout |
+| `app-store-connect-release` | Upload PROD iOS builds to TestFlight and submit them for App Review |
 
 ---
 
