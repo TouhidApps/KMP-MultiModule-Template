@@ -3,6 +3,12 @@
 build/
 
 .*
+# Keep shared dotfiles and Claude Code project config (skills) in git
+!.gitignore
+!.gitattributes
+!.claude/
+.claude/settings.local.json
+.DS_Store
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -23,6 +29,9 @@ output.json
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
+
+# Xcode per-user state
+xcuserdata/
 
 # Keystore files
 *.jks
