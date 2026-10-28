@@ -1,6 +1,6 @@
 This is a Kotlin Multiplatform project targeting Android, Desktop (JVM), iOS, Web, Server, built with the [Kotlin Toolchain](https://kotlin-toolchain.org/dev/).
 
-## KMP MultiModule Template
+## KMP MultiModule Template with AI Skills which helps to write human readable code
 ### Start your project with KMP, CMP, (Android, iOS, Web, Desktop), Kotlin SpringBoot Server, Ampher
 
 
