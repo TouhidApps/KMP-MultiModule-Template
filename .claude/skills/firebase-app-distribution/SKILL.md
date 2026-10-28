@@ -173,12 +173,12 @@ keyPassword=...
 - UAT and PROD may share the keystore. With the same package name, testers can
   only have one of the two installed. For side-by-side installs, see
   `kmp-environments` section 2 (package suffix) and ask the user first.
-- **Ask before each upload whether to bump** (section 11a). Usually
-  `VERSION_CODE` goes up for every build that goes to testers: Android refuses a
-  lower code, and two different builds with the same code look like one release
-  in App Distribution. Re-uploading the same version and code is allowed when
-  the user picks it (Android installs over an equal code). The `VERSION_NAME`
-  only changes when the user decides.
+- **Ask before each upload: replace the old version or upload a new version**
+  (section 11a). A new version bumps both `VERSION_CODE` and `VERSION_NAME` and
+  adds a release note: Android refuses a lower code, and two different builds
+  with the same code look like one release in App Distribution. Replacing
+  (same version and code) is allowed when the user picks it (Android installs
+  over an equal code).
 - **Crashlytics mapping** (`kmp-analytics-logging` 8b): before the build, run
   `firebase crashlytics:mappingfile:generateid --resource-file=app/androidApp/res/values/crashlytics_mapping_id.xml`;
   after it, upload the R8 `mapping.txt` with
@@ -516,7 +516,8 @@ What the script refuses, and why:
 Keep the paths at the top in sync with `use_env.py` (`ENV_KT` uses the project's
 package directory).
 
-Before every upload Claude shows the current version and asks (section 11a).
+Before every upload Claude shows the current version and first asks whether to
+replace the old version or upload a new version (section 11a).
 
 ## 8. Tester groups
 
@@ -668,25 +669,49 @@ words:
 - Tag each PROD release-candidate commit (`v1.1.1-rc1`) so the next notes start
   from it.
 
-### 11a. New version or same version? (ask before every upload)
+### 11a. Replace the old version or upload a new version? (ask first, before every upload)
 
 Before running `distribute.py` (not for `--dry-run`), Claude reads
-`config/version.properties` and asks, e.g.:
+`config/version.properties` and asks this **first**, before building or
+uploading anything:
 
-> Current version is **1.1.1 (12)**. Upload as:
-> 1. same version and build, 1.1.1 (12): replaces what testers have, no version change
-> 2. same version, new build, 1.1.1 (13): recommended, testers can tell the builds apart
-> 3. new version, 1.1.2 (13): starts `release-notes/1.1.2.txt`
+> Current version is **1.1.1 (12)**. Do you want to:
+> 1. **replace the old version**: upload again as 1.1.1 (12), testers get the new
+>    binary under the same version, no version change
+> 2. **upload a new version**: bump the version so testers see a separate release
 
-- Firebase App Distribution accepts the same version and build again; it shows
-  up as a new release with the same label (an identical binary updates the
-  existing release instead). Offer option 1 only here: Google Play and the App
-  Store never take a version code twice, so a build that is meant to go to a
-  store later needs a fresh `VERSION_CODE`.
-- Option 1 changes no file. Options 2 and 3 edit `config/version.properties`
-  (and for PROD, commit it, since the tree must be clean).
-- For a new version, if `release-notes/<old>.txt` was never sent to a store, ask
-  whether its lines move to the new file.
+If the user picks 2, Claude does all of this, in order, then uploads:
+
+1. **Bump both numbers** in `config/version.properties`: `VERSION_CODE` + 1 and
+   `VERSION_NAME` to the next patch (1.1.1 (12) -> 1.1.2 (13)). Use a minor or
+   major bump (1.2.0, 2.0.0) only when the user says so.
+2. **Add the release note**: create `release-notes/<new VERSION_NAME>.txt`
+   (e.g. `release-notes/1.1.2.txt`) in the same plain style as the existing
+   files. Write it from what changed since the last version: lines already in
+   `release-notes/<old>.txt` that never went to a store, otherwise the commit
+   subjects since the last tag, rewritten as short tester-facing lines (what's
+   new, what to test). Show the text and let the user edit it before the build.
+3. **Run `scripts/use_env.py <env>`** so `module.yaml` and the iOS project pick
+   up the new version, then build.
+4. **Upload** with `distribute.py`; the release-notes header shows the new label
+   (`v1.1.2 (UAT) · build 13 · <sha>`) and the body comes from the new file.
+5. For PROD, commit `config/version.properties` and the new release-notes file
+   before the upload, since the tree must be clean.
+
+- Never pick for the user, and don't skip the question because the last upload
+  used one answer: ask again for every upload, per environment and platform run.
+- **Replace**: Firebase App Distribution accepts the same version and build
+  again; it shows up as a new release with the same label (an identical binary
+  updates the existing release instead). Testers on that build are offered the
+  new binary. After the upload, ask whether the older release with the same label
+  should be deleted in the Firebase console (App Distribution > Releases) so
+  testers see only one; deleting can't be undone, so never do it without a yes.
+  Offer "replace" for App Distribution only: Google Play and the App Store never
+  take a version code twice, so a build that is meant to go to a store later
+  needs a fresh `VERSION_CODE`. For a PROD release candidate that will go to a
+  store, say so and recommend a new version.
+- Replace changes no file. A new version changes `config/version.properties`
+  and adds `release-notes/<new VERSION_NAME>.txt`; list both in the file report.
 - In CI there is nobody to ask: the workflow uploads whatever version is
   committed.
 
@@ -728,7 +753,7 @@ have it. Store updates for real users are handled by
 - [ ] iOS exports with `release-testing` / `ad-hoc`; tester UDIDs registered; CI signs with an App Store Connect API key
 - [ ] `scripts/distribute.py` switches env, verifies package/bundle id and version, restores the previous env; `--dry-run` output checked
 - [ ] PROD needs `--yes-prod`, a clean tree, a release build and a reviewer-approved CI environment
-- [ ] Current version shown and "same version, new build, or new version" asked before each upload
+- [ ] Current version shown and "replace the old version or upload a new version?" asked first, before each upload; a new version bumps `VERSION_CODE` and `VERSION_NAME` and adds `release-notes/<new VERSION_NAME>.txt` before the upload
 - [ ] Release notes start with `v1.1.1 (UAT) · build 12 · <sha>`, body from `release-notes/<VERSION_NAME>.txt` (commit subjects only as fallback)
 - [ ] CI secrets decoded to `$RUNNER_TEMP`, never printed; tests gate the upload jobs
 - [ ] No App Distribution SDK in any Play or App Store build
