@@ -30,6 +30,9 @@ misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
 
+# Xcode per-user state
+xcuserdata/
+
 # Keystore files
 *.jks
 *.keystore

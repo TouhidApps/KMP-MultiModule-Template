@@ -99,6 +99,21 @@ Use the run configurations provided by the run widget in your IDE's toolbar. You
 - Web app: `./kotlin run -m webApp`
 - Server: `./kotlin run -m server`
 
+### Using with Claude Code
+
+This template ships with [Claude Code](https://claude.com/claude-code) project skills in [`.claude/skills/`](./.claude/skills/) and project rules in [CLAUDE.md](./CLAUDE.md). Open the project with Claude Code and the skills load automatically; Claude picks the matching one for each task, or you can call one directly with `/<skill-name>`.
+
+| Area | Skills |
+| --- | --- |
+| Architecture and code | `kmp-clean-architecture`, `kmp-feature-scaffold`, `kotlin-readable-code`, `compose-multiplatform-ui` |
+| Data and backend | `kmp-networking-ktor`, `kmp-supabase`, `web-admin-landing` |
+| App setup | `kmp-environments`, `kmp-security`, `kmp-analytics-logging` |
+| App features | `kmp-push-notifications`, `kmp-update-maintenance-alerts`, `kmp-legal-consent` |
+| Graphics | `app-graphics-generator`, `store-assets-generator` |
+| Distribution | `firebase-app-distribution`, `play-console-release`, `app-store-connect-release` |
+
+The rules in CLAUDE.md apply to every task: TDD, MVI, the core/feature module layout and UAT/PROD environments. Claude never uploads to Firebase or the stores without your confirmation. Personal Claude settings go in `.claude/settings.local.json`, which git ignores.
+
 ---
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html), [Kotlin Toolchain](https://kotlin-toolchain.org/dev/), [Compose Multiplatform](https://kotlinlang.org/compose-multiplatform/), [Kotlin/Wasm](https://kotl.in/wasm/), [Ktor](https://ktor.io/), [Room KMP](https://developer.android.com/kotlin/multiplatform/room), [Firebase Kotlin SDK](https://github.com/GitLiveApp/firebase-kotlin-sdk).
